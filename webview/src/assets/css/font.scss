@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+/*
+ * Nanum Gothic (Korean) http://www.google.com/fonts/earlyaccess
+ * @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+ * @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ */
+@font-face {
+    font-family: 'NanumGothic';
+    font-style: normal;
+    font-weight: normal;
+    src: url(@/assets/fonts/NanumGothic-Regular.woff2) format('woff2');
+}
+@font-face {
+    font-family: 'NanumGothic';
+    font-style: bold;
+    font-weight: 700;
+    src: url(@/assets/fonts/NanumGothic-Bold.woff2) format('woff2');
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 300;
+    font-style: normal;
+    src: url(@/assets/fonts/Pretendard-Light.woff2) format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-style: normal;
+    src: url(@/assets/fonts/Pretendard-Regular.woff2) format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 500;
+    font-style: normal;
+    src: url(@/assets/fonts/Pretendard-Medium.woff2) format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 600;
+    font-style: normal;
+    src: url(@/assets/fonts/Pretendard-SemiBold.woff2) format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 700;
+    font-style: normal;
+    src: url(@/assets/fonts/Pretendard-Bold.woff2) format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 800;
+    font-style: normal;
+    src: url(@/assets/fonts/Pretendard-ExtraBold.woff2) format('woff2');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'D2Coding';
+    src: url(@/assets/fonts/D2Coding.woff) format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.d2coding {
+    font-family: 'D2Coding' !important;
+}

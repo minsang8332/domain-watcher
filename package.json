@@ -1,0 +1,73 @@
+{
+    "name": "domain-watcher",
+    "description": "도메인 헬스체크 용 Mac 및 Windows 트레이 앱",
+    "version": "1.0.0",
+    "main": "build/bundle.js",
+    "scripts": {
+        "setup": "npm install && cd webview && npm install",
+        "serve": "concurrently \"npm run webview\" \"npm run webpack:watch\"",
+        "build": "npm run webview:build && npm run webpack:build && electron-builder",
+        "deploy": "npm run webview:build && npm run webpack:build && electron-builder -p always",
+        "webpack:watch": "webpack --env html=webview --watch",
+        "webpack:build": "webpack --env html=webview production",
+        "webview": "cd webview && npm run serve",
+        "webview:build": "cd webview && npm run build",
+        "icon": "electron-icon-builder --input=./src/assets/favicon.png --output=./src/assets -f"
+    },
+    "build": {
+        "appId": "com.minsang8332.domain_watcher",
+        "productName": "Domain Watcher",
+        "artifactName": "domain-watcher-setup-${version}.${ext}",
+        "asar": true,
+        "win": {
+            "target": "nsis"
+        },
+        "nsis": {
+            "shortcutName": "Domain Watcher"
+        },
+        "files": [
+            "build/**",
+            "package.json"
+        ],
+        "directories": {
+            "buildResources": "build/assets"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/minsang8832/domain-watcher.git"
+    },
+    "publish": {
+        "provider": "github"
+    },
+    "keywords": [],
+    "author": "minsang8332@gmail.com",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/minsang8332/domain-watcher/issues"
+    },
+    "homepage": "https://github.com/minsang8332/domain-watcher#readme",
+    "devDependencies": {
+        "@types/lodash": "^4.14.200",
+        "concurrently": "^8.2.0",
+        "electron": "^27.0.1",
+        "electron-builder": "^24.6.4",
+        "electron-icon-builder": "^2.0.1",
+        "filemanager-webpack-plugin": "^8.0.0",
+        "ts-loader": "^9.5.0",
+        "typescript": "^5.1.6",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.4"
+    },
+    "dependencies": {
+        "crypto": "^1.0.1",
+        "dayjs": "^1.11.9",
+        "dotenv": "^16.3.1",
+        "electron-log": "^5.0.0",
+        "electron-store": "^8.1.0",
+        "electron-updater": "^6.1.4",
+        "fs-extra": "^11.1.1",
+        "lodash": "^4.17.21",
+        "webpack-electron-reload": "^1.0.1"
+    }
+}

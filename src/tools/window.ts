@@ -5,8 +5,8 @@ let mainWindow: BrowserWindow
 const creaateWindow = ({
     scheme = 'file',
     url = '',
-    width = 1024,
-    height = 768,
+    width = 480,
+    height = 320,
 }: {
     scheme: string
     url?: string

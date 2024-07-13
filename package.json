@@ -54,6 +54,7 @@
         "electron-builder": "^24.6.4",
         "electron-icon-builder": "^2.0.1",
         "filemanager-webpack-plugin": "^8.0.0",
+        "node-gyp": "^10.2.0",
         "ts-loader": "^9.5.0",
         "typescript": "^5.1.6",
         "webpack": "^5.89.0",

@@ -8,6 +8,7 @@
         "serve": "concurrently \"npm run webview\" \"npm run webpack:watch\"",
         "build": "npm run webview:build && npm run webpack:build && electron-builder",
         "deploy": "npm run webview:build && npm run webpack:build && electron-builder -p always",
+        "rebuild": "electron-rebuild",
         "webpack:watch": "webpack --env html=webview --watch",
         "webpack:build": "webpack --env html=webview production",
         "webview": "cd webview && npm run serve",
@@ -53,6 +54,7 @@
         "electron": "^27.0.1",
         "electron-builder": "^24.6.4",
         "electron-icon-builder": "^2.0.1",
+        "electron-rebuild": "^3.2.9",
         "filemanager-webpack-plugin": "^8.0.0",
         "node-gyp": "^10.2.0",
         "ts-loader": "^9.5.0",
@@ -69,6 +71,7 @@
         "electron-updater": "^6.1.4",
         "fs-extra": "^11.1.1",
         "lodash": "^4.17.21",
+        "node-fetch": "^3.3.2",
         "webpack-electron-reload": "^1.0.1"
     }
 }

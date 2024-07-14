@@ -5,34 +5,14 @@ interface IAppState {
     menu: boolean
     menuProps: IAppMenuProps
 }
-interface IDiaryState {
-    diaries: IDiary[]
+interface IDomainState {
+    domains: IDomain[]
 }
-interface IAppMenuProps {
-    path: string | null
-    isDir: boolean
-    pageX: number
-    pageY: number
-    items?: IAppMenuItem[]
-}
-interface IAppMenuItem {
-    name: string
-    icon: string
-    color: string
-    desc: string
-    shortcut: string
-    cb?: () => void
-}
-interface IAppModalProps {
-    message: string | string[] | null
-    ok: (() => void) | null
-}
-interface IDiary {
-    path: string
-    isDir: boolean
-    createdAt: number
-    updatedAt: number
-}
-interface IDiaryWithPreview extends IDiary {
-    preview: string
+interface IDomain {
+    // minsang8332.shop
+    hostname: string
+    // [80, 443]
+    port: number[]
+    // curl 반복 주기
+    cicle: number
 }

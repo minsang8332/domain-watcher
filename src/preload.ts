@@ -13,6 +13,11 @@ contextBridge.exposeInMainWorld('$native', {
     getVersion() {
         return app.getVersion()
     },
+    domain: {
+        healthcheck (payload: IpcPayload.Domain.HealthCheck) {
+            return invoke('domain:health-check', payload)
+        }
+    },
     updater: {
         // 업데이트 가능여부가 확인뙬 때 까지 기다림
         wait() {
@@ -22,7 +27,7 @@ contextBridge.exposeInMainWorld('$native', {
                 )
             })
         },
-        available(payload = {}) {
+        available (payload: any) {
             return invoke('updater:available', payload)
         },
         install() {

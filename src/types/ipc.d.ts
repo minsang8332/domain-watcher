@@ -4,9 +4,14 @@ namespace IpcHandle {
         error?: IError
     }
     interface IError {
-        name: string | null
-        message: string | null
+        name: string
+        message: string
     }
 }
 namespace IpcPayload {
+    namespace Domain {
+        interface HealthCheck {
+            hostname: string
+        }
+    }
 }

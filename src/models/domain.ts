@@ -21,24 +21,24 @@ const findById = (id: string): IDomain | false => {
     }
     return domain
 }
-const findByHostname = (hostname: string): IDomain | false => {
+const findByHostname = (hostname: string): IDomain[] | false => {
     const domains: IDomain[] = store.get('domains') as IDomain[]
     if (!(domains && domains.length > 0)) {
         return false
     }
-    const domain = domains.find((d: IDomain) => d.hostname == hostname)
-    if (_.isNil(domain)) {
+    const filtered = domains.filter((d: IDomain) => d.hostname == hostname)
+    if (_.isNil(filtered)) {
         return false
     }
-    return domain
+    return filtered
 }
 const insertOne = (domainForm: IDomainForm) => {
-    if (findByHostname(domainForm.hostname)) {
-        return false
-    }
     let domains = store.get('domains') as IDomain[]
     if (_.isEmpty(domains)) {
         domains = []
+    }
+    if (domains.find((d: IDomain) => d.hostname == domainForm.hostname && d.port == domainForm.port)) {
+        return false
     }
     const id = commonUtils.randomHex()
     if (domains.find((d: IDomain) => d.id == id)) {
@@ -47,15 +47,17 @@ const insertOne = (domainForm: IDomainForm) => {
     const domain: IDomain = {
         id,
         hostname: domainForm.hostname,
+        ip: domainForm.ip,
         port: domainForm.port,
-        ips: domainForm.ips ?? [],
-        cycle: 10000
     }
     domains.push(domain)
     store.set('domains', domains)
     return true
 }
 const updateOne = (domainForm: IDomainForm) => {
+    if (_.isNil(domainForm.id)) {
+        return false
+    }
     let domain = findById(domainForm.id)
     if (!domain) {
         return false
@@ -66,8 +68,7 @@ const updateOne = (domainForm: IDomainForm) => {
     }
     domain.hostname = domainForm.hostname
     domain.port = domainForm.port
-    domain.ips = domainForm.ips ?? []
-    domain.cycle = domainForm.cycle ?? 10000
+    domain.ip = domainForm.ip
     store.set('domains', domains)
     return true
 }
@@ -82,10 +83,14 @@ const deleteOne = (id: string) => {
     domains.filter((d: IDomain) => d.id != id)
     store.set('domains', domains)
 }
-const toURL = (domain: IDomain) => {
+const clear = () => {
+    store.set('domains', [])
+}
+const toURL = (ip: string, port: number) => {
     const url = new URL('http://127.0.0.1')
-    url.protocol = domain.port === 443 ? 'https' : 'http'
-    url.hostname = domain.hostname
+    url.protocol = port === 443 ? 'https' : 'http'
+    url.port = _.toString(port)
+    url.hostname = ip
     return url.origin
 }
 export default {
@@ -95,5 +100,6 @@ export default {
     insertOne,
     updateOne,
     deleteOne,
+    clear,
     toURL
 }

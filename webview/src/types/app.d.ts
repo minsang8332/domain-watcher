@@ -1,6 +1,3 @@
-declare global {
-    interface Window {
-        $native: any
-    }
+interface IAppState {
+    loading: boolean
 }
-export {}

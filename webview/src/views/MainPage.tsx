@@ -1,19 +1,40 @@
-import { defineComponent } from 'vue'
+import { computed, defineComponent, onBeforeMount } from 'vue'
+import { useDomainStore } from '@/stores/domain'
+import DomainStatus from '@/components/domain/DomainStatus'
+import DomainGroupCard from '@/components/domain/DomainGroupCard'
 export default defineComponent({
     name: 'MainPage',
+    components: {
+        DomainStatus,
+        DomainGroupCard
+    },
     setup() {
+        const domainStore = useDomainStore()
+        onBeforeMount(() => domainStore.load())
         return () => (
-            <v-container class="receipt-page pa-0" fluid>
-                <v-card flat>
+            <v-container class="main-page pa-0" fluid>
+                <v-card class="flex" flat>
                     <v-row class="pa-2" no-gutters>
                         <v-col>
-                            <h1 class="text-title">페이지</h1>
+                            <domain-status />
                         </v-col>
                     </v-row>
                     <v-divider class="pa-1" />
-                    <v-row no-gutters>
-                        <v-col></v-col>
-                    </v-row>
+                    {   
+                        domainStore.getDomains.map((d: IDomain, idx) => {
+                            return <>
+                                <v-row class="row-domain-group" no-gutters>
+                                    <v-col>
+                                        <domain-group-card />
+                                    </v-col>
+                                </v-row>
+                                {
+                                    idx < domainStore.getDomains.length - 1 && 
+                                    <v-divider class="pa-1" />
+                                }
+                            </>
+                        })
+                    }
                 </v-card>
             </v-container>
         )

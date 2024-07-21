@@ -7,6 +7,12 @@ const scss = (property: string): string => {
 }
 // 어플리케이션 전반적인 동작 관련 전역 스토어
 export const useAppStore = defineStore('app', () => {
+    const state = reactive<IAppState>({
+        loading: false
+    })
+    const setLoading = (loading: boolean) => {
+        state.loading = loading
+    }
     // 앱 종료
     const powerOff = () => {
         window.$native.exit()
@@ -25,6 +31,7 @@ export const useAppStore = defineStore('app', () => {
     }
     return {
         scss,
+        setLoading,
         powerOff,
         waitUpdate,
         availableUpdate,

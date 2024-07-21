@@ -1,10 +1,9 @@
 interface IDomain {
     id: string
     hostname: string
-    port: number
-    cycle: number
-    ips?: string[]
+    ip?: string
+    port?: number
 }
-interface IDomainForm extends IDomain {r
-    cycle?: number
+interface IDomainForm extends IDomain {
+    id?: string
 }

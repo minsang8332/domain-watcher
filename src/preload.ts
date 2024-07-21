@@ -14,6 +14,9 @@ contextBridge.exposeInMainWorld('$native', {
         return app.getVersion()
     },
     domain: {
+        load () {
+            return invoke('domain:load')
+        },
         healthcheck (payload: IpcPayload.Domain.HealthCheck) {
             return invoke('domain:health-check', payload)
         }

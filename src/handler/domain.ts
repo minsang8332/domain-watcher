@@ -3,11 +3,22 @@ import { app, ipcMain } from 'electron'
 import fetch from 'node-fetch'
 import { createError, createResponse } from '@/models/handler'
 import domainModel from '@/models/domain'
-// 도메인 목록
-ipcMain.handle('domain:index', (event) => {
+/** s: @TEST */
+domainModel.clear()
+domainModel.insertOne({
+    hostname: 'minsang8333.shop',
+    port: 443,
+})
+domainModel.insertOne({
+    hostname: 'minsang8333.shop',
+    port: 80,
+})
+/** e: @TEST */
+// 도메인 호출
+ipcMain.handle('domain:load', (event) => {
     let resposne: IpcHandle.IResponse = createResponse()
     try {
-        let domains: IDomain[] = domainModel.findAll()
+        const domains: IDomain[] = domainModel.findAll()
         resposne.data = {
             domains
         }
@@ -26,26 +37,18 @@ ipcMain.handle('domain:delete', (event, payload) => {})
 ipcMain.handle('domain:health-check', async (event, payload: IpcPayload.Domain.HealthCheck) => {
     let response: IpcHandle.IResponse = createResponse()
     try {
-        const { hostname, prefferedIP } = payload
-        const domain = domainModel.findByHostname(hostname)
+        const { id, ip, port } = payload
+        const domain = domainModel.findById(id)
         if (!domain) {
             throw new Error('unregisted-domain.')
         }
-        let url = domainModel.toURL(domain)
-        let options
-        if (prefferedIP) {
-            options = {
-                headers: {
-                    'Host': prefferedIP
-                }
-            }
-        }
-        let fetchResponse = await fetch(url, options)
+        const url = domainModel.toURL(ip, port)
+        const fetchResponse = await fetch(url)
         if (fetchResponse.ok == false) {
             throw new Error(`network-error (${fetchResponse.statusText}::${fetchResponse.status})`)
         }
         response.data = {
-            hostname,
+            domain,
             url,
             status: fetchResponse.status,
             statusText: fetchResponse.statusText

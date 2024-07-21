@@ -37,7 +37,7 @@ const creaateWindow = ({
     const onceLoad = () => {
         window.show()
         if (app.isPackaged == false) {
-            // window.webContents.openDevTools()
+            window.webContents.openDevTools()
         }
         checkForUpdates()
     }

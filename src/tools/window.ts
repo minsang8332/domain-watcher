@@ -5,8 +5,8 @@ let mainWindow: BrowserWindow
 const creaateWindow = ({
     scheme = 'file',
     url = '',
-    width = 480,
-    height = 320,
+    width = 320,
+    height = 480,
 }: {
     scheme: string
     url?: string
@@ -37,7 +37,7 @@ const creaateWindow = ({
     const onceLoad = () => {
         window.show()
         if (app.isPackaged == false) {
-            window.webContents.openDevTools()
+            // window.webContents.openDevTools()
         }
         checkForUpdates()
     }

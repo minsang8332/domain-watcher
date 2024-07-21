@@ -1,15 +1,7 @@
-import { defineComponent, onMounted } from 'vue'
-import { useDomainStore } from '@/stores/domain'
+import { defineComponent } from 'vue'
 export default defineComponent({
-    name: 'ReceiptPage',
+    name: 'MainPage',
     setup() {
-        /* 헬첵 테스트 */
-        const domainStore = useDomainStore()
-        onMounted(() => {
-            setInterval(() => {
-                domainStore.healthcheck('naver.com')
-            }, 3000)
-        })
         return () => (
             <v-container class="receipt-page pa-0" fluid>
                 <v-card flat>

@@ -33,9 +33,3 @@ npm config set msvs_version 2019 --global
 ```sh
 npm install -g node-gyp@10.2
 ```
-
-##### NODE_LIBCURL
-> libcurl의 강력한 기능을 활용할 수 있으며, 병렬 요청 처리, SSL 인증서 관리, HTTP/2 지원 등 고급 기능 포함, libcurl은 C/C++로 작성되어 있어 네이티브 코드 수준의 성능을 제공하며, 대용량 데이터 처리나 높은 처리 속도에 쓰임.
-```sh
-npm install node-libcurl --node_libcurl_cpp_std=c++17 --runtime=electron --target=27.0.1 --disturl=https://www.electronjs.org/headers
-```

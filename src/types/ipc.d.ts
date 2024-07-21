@@ -12,6 +12,7 @@ namespace IpcPayload {
     namespace Domain {
         interface HealthCheck {
             hostname: string
+            prefferedIP?: string
         }
     }
 }

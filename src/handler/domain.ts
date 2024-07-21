@@ -26,13 +26,21 @@ ipcMain.handle('domain:delete', (event, payload) => {})
 ipcMain.handle('domain:health-check', async (event, payload: IpcPayload.Domain.HealthCheck) => {
     let response: IpcHandle.IResponse = createResponse()
     try {
-        const { hostname } = payload
-        const domainOne = domainModel.findOne(hostname)
-        if (_.isNil(domainOne)) {
+        const { hostname, prefferedIP } = payload
+        const domain = domainModel.findByHostname(hostname)
+        if (!domain) {
             throw new Error('unregisted-domain.')
         }
-        let url = domainModel.toURL(domainOne)
-        let fetchResponse = await fetch(url)
+        let url = domainModel.toURL(domain)
+        let options
+        if (prefferedIP) {
+            options = {
+                headers: {
+                    'Host': prefferedIP
+                }
+            }
+        }
+        let fetchResponse = await fetch(url, options)
         if (fetchResponse.ok == false) {
             throw new Error(`network-error (${fetchResponse.statusText}::${fetchResponse.status})`)
         }
